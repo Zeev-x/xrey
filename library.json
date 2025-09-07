@@ -11,14 +11,14 @@
   "platforms": ["espressif32", "espressif8266"],
   "dependencies": {
     "espressif32": [
-      "https://github.com/me-no-dev/AsyncTCP.git",
-      "https://github.com/me-no-dev/ESPAsyncWebServer.git",
-      "https://github.com/bblanchon/ArduinoJson.git"
+      "me-no-dev/AsyncTCP",
+      "me-no-dev/ESPAsyncWebServer",
+      "bblanchon/ArduinoJson @ ^6.21.0"
     ],
     "espressif8266": [
-      "https://github.com/me-no-dev/ESPAsyncTCP.git",
-      "https://github.com/me-no-dev/ESPAsyncWebServer.git",
-      "https://github.com/bblanchon/ArduinoJson.git"
+      "me-no-dev/ESPAsyncTCP",
+      "me-no-dev/ESPAsyncWebServer",
+      "bblanchon/ArduinoJson @ ^6.21.0"
     ]
   },
   "extra_scripts": "scripts/upload_fs.py"
