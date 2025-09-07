@@ -1,15 +1,16 @@
 Import("env")
+import os
 
-env_name = env["PIOENV"]
+# path data di dalam library (otomatis dicari di .pio/libdeps)
+lib_data_dir = os.path.join(env['PROJECT_LIBDEPS_DIR'], env['PIOENV'], "espServer", "data")
 
-def before_upload_fs(source, target, env):
-    if env_name == "esp32dev":
-        print(">>> Uploading FS untuk ESP32...")
-        env.Execute("pio run -t uploadfs -e esp32dev")
-    elif env_name == "esp8266":
-        print(">>> Uploading FS untuk ESP8266...")
-        env.Execute("pio run -t uploadfs -e esp8266")
+def before_upload(source, target, env):
+    if os.path.isdir(lib_data_dir):
+        print(">>> Using library data folder:", lib_data_dir)
+        env.Replace(DATA_DIR=lib_data_dir)
     else:
-        print(">>> Skip upload FS (env tidak dikenal)")
+        print(">>> No data folder found in library")
 
-env.AddPreAction("upload", before_upload_fs)
+# Pastikan filesystem image dibangun dulu sebelum upload firmware
+env.AddPreAction("upload", before_upload)
+env.Depends("upload", "uploadfs")
